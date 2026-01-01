@@ -68,7 +68,7 @@ public class SimpleBill {
                 case 2:
                     // VIEW PRODUCTS
                     if (productList.isEmpty()) {
-                        System.out.println("⚠ No products available");
+                        System.out.println("No products available");
                     } else {
                         System.out.println("\nID\tName\tPrice");
                         System.out.println("----------------------");
@@ -79,6 +79,7 @@ public class SimpleBill {
                     break;
 
                 case 3:
+
                     // SIMPLE BILLING + FILE SAVE
                     System.out.print("Enter Total Bill Amount: ");
                     double total = sc.nextDouble();
