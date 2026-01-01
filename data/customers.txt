@@ -1,0 +1,6 @@
+C002|Rahul Sharma|9876543210|rahul.sharma@email.com|0.0
+C001|Aryan Pandey|7410741010|Aryan@gmail.com|53690.0
+C006|Amit Kumar|9876543212|amit.kumar@email.com|0.0
+C005|Vijay Reddy|9876543214|vijay.reddy@email.com|0.0
+C004|Sneha Patel|9876543213|sneha.patel@email.com|0.0
+C003|Priya Singh|9876543211|priya.singh@email.com|0.0

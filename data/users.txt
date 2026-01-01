@@ -1,0 +1,3 @@
+admin|admin123|ADMIN
+cashier|cash123|CASHIER
+manager|manager123|MANAGER
