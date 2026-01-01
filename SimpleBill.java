@@ -42,7 +42,7 @@ public class SimpleBill {
             try {
                 choice = sc.nextInt();
             } catch (Exception e) {
-                System.out.println("❌ Please enter valid number");
+                System.out.println("Please enter valid number");
                 sc.nextLine();
                 continue;
             }
@@ -62,7 +62,7 @@ public class SimpleBill {
                     double price = sc.nextDouble();
 
                     productList.add(new Product(id, name, price));
-                    System.out.println("✅ Product Added Successfully");
+                    System.out.println("Product Added Successfully");
                     break;
 
                 case 2:
@@ -83,29 +83,28 @@ public class SimpleBill {
                     System.out.print("Enter Total Bill Amount: ");
                     double total = sc.nextDouble();
 
-                    System.out.println("💰 Total Amount = " + total);
+                    System.out.println("Total Amount = " + total);
 
                     try {
                         FileWriter fw = new FileWriter("bill.txt", true);
                         fw.write("Total Bill Amount = " + total + "\n");
                         fw.close();
 
-                        System.out.println("📁 Bill saved in bill.txt");
+                        System.out.println("Bill saved in bill.txt");
 
                     } catch (IOException e) {
-                        System.out.println("❌ Error while saving bill");
+                        System.out.println("Error while saving bill");
                     }
                     break;
 
                 case 4:
-                    System.out.println("🙏 Thank you for using POS System");
+                    System.out.println("Thank you for using POS System");
                     sc.close();
                     System.exit(0);
 
                 default:
-                    System.out.println("❌ Invalid choice");
+                    System.out.println("Invalid choice");
             }
         }
     }
 }
-
