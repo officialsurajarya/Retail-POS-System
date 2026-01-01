@@ -21,12 +21,12 @@ This Retail POS System allows:
 
 ## Team Structure
 
-| Person   | Responsibility                       |
-| -------- | ------------------------------------ |
-| Person 1 | Main Application, Menu, User Login   |
-| Person 2 | Model Classes (OOP Design)           |
-| Person 3 | Inventory & Billing Logic            |
-| Person 4 | File Handling, Utilities, Exceptions |
+| Person         | Responsibility                       |
+| -------------- | ------------------------------------ |
+| Suraj Arya     | Main Application, Menu, User Login   |
+| Aryan Pandey   | Model Classes (OOP Design)           |
+| Vaibhavi Anand | Inventory & Billing Logic            |
+| Atul Mishra    | File Handling, Utilities, Exceptions |
 
 Each file contains a **header comment** showing:
 
