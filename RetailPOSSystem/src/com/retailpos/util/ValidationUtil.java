@@ -10,32 +10,18 @@ package com.retailpos.util;
 
 import com.retailpos.exception.InvalidInputException;
 
-/**
- * Utility class for input validation
- */
+//Utility class for input validation
+
 public class ValidationUtil {
 
-    /**
-     * Validate if string is not empty
-     * 
-     * @param input     Input string
-     * @param fieldName Name of the field
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate if string is not empty
     public static void validateNotEmpty(String input, String fieldName) throws InvalidInputException {
         if (input == null || input.trim().isEmpty()) {
             throw new InvalidInputException(fieldName + " cannot be empty");
         }
     }
 
-    /**
-     * Validate if string is a valid integer
-     * 
-     * @param input     Input string
-     * @param fieldName Name of the field
-     * @return Parsed integer value
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate if string is a valid integer
     public static int validateInteger(String input, String fieldName) throws InvalidInputException {
         try {
             validateNotEmpty(input, fieldName);
@@ -45,14 +31,7 @@ public class ValidationUtil {
         }
     }
 
-    /**
-     * Validate if string is a valid positive integer
-     * 
-     * @param input     Input string
-     * @param fieldName Name of the field
-     * @return Parsed integer value
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate if string is a valid positive integer
     public static int validatePositiveInteger(String input, String fieldName) throws InvalidInputException {
         int value = validateInteger(input, fieldName);
         if (value <= 0) {
@@ -61,14 +40,7 @@ public class ValidationUtil {
         return value;
     }
 
-    /**
-     * Validate if string is a valid double
-     * 
-     * @param input     Input string
-     * @param fieldName Name of the field
-     * @return Parsed double value
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate if string is a valid double
     public static double validateDouble(String input, String fieldName) throws InvalidInputException {
         try {
             validateNotEmpty(input, fieldName);
@@ -78,14 +50,7 @@ public class ValidationUtil {
         }
     }
 
-    /**
-     * Validate if string is a valid positive double
-     * 
-     * @param input     Input string
-     * @param fieldName Name of the field
-     * @return Parsed double value
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate if string is a valid positive double
     public static double validatePositiveDouble(String input, String fieldName) throws InvalidInputException {
         double value = validateDouble(input, fieldName);
         if (value <= 0) {
@@ -94,12 +59,7 @@ public class ValidationUtil {
         return value;
     }
 
-    /**
-     * Validate phone number (10 digits)
-     * 
-     * @param phone Phone number
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate phone number (10 digits)
     public static void validatePhoneNumber(String phone) throws InvalidInputException {
         validateNotEmpty(phone, "Phone number");
         if (!phone.matches("\\d{10}")) {
@@ -107,12 +67,7 @@ public class ValidationUtil {
         }
     }
 
-    /**
-     * Validate email format
-     * 
-     * @param email Email address
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate email format
     public static void validateEmail(String email) throws InvalidInputException {
         validateNotEmpty(email, "Email");
         if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
@@ -120,12 +75,7 @@ public class ValidationUtil {
         }
     }
 
-    /**
-     * Validate product ID format
-     * 
-     * @param productId Product ID
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate product ID format
     public static void validateProductId(String productId) throws InvalidInputException {
         validateNotEmpty(productId, "Product ID");
         if (!productId.matches("^P\\d{3}$")) {
@@ -133,12 +83,7 @@ public class ValidationUtil {
         }
     }
 
-    /**
-     * Validate customer ID format
-     * 
-     * @param customerId Customer ID
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate customer ID format
     public static void validateCustomerId(String customerId) throws InvalidInputException {
         validateNotEmpty(customerId, "Customer ID");
         if (!customerId.matches("^C\\d{3}$")) {
@@ -146,15 +91,7 @@ public class ValidationUtil {
         }
     }
 
-    /**
-     * Validate choice from menu
-     * 
-     * @param choice User choice
-     * @param min    Minimum valid choice
-     * @param max    Maximum valid choice
-     * @return Validated choice
-     * @throws InvalidInputException If validation fails
-     */
+    // Validate choice from menu
     public static int validateChoice(String choice, int min, int max) throws InvalidInputException {
         int value = validateInteger(choice, "Choice");
         if (value < min || value > max) {

@@ -12,10 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-/**
- * Bill model class representing a billing transaction
- * Demonstrates Encapsulation, Inner Class, and OOP principles
- */
+// Bill model class representing a billing transaction 
 public class Bill {
 
     // Private fields - Encapsulation
@@ -32,10 +29,7 @@ public class Bill {
     // GST percentage
     private static final double GST_RATE = 0.18; // 18% GST
 
-    /**
-     * Inner class representing an item in the bill
-     * Demonstrates Inner Class concept
-     */
+    // Inner class representing an item in the bill
     public static class BillItem {
         private String productId;
         private String productName;
@@ -43,9 +37,7 @@ public class Bill {
         private double unitPrice;
         private double itemTotal;
 
-        /**
-         * Constructor for BillItem
-         */
+        // Constructor for BillItem
         public BillItem(String productId, String productName, int quantity, double unitPrice) {
             this.productId = productId;
             this.productName = productName;
@@ -81,16 +73,12 @@ public class Bill {
                     productId, productName, quantity, unitPrice, itemTotal);
         }
 
-        /**
-         * Convert to file string format
-         */
+        // Convert to file string format
         public String toFileString() {
             return productId + ":" + productName + ":" + quantity + ":" + unitPrice;
         }
 
-        /**
-         * Create BillItem from file string
-         */
+        // Create BillItem from file string
         public static BillItem fromFileString(String str) {
             String[] parts = str.split(":");
             if (parts.length >= 4) {
@@ -102,9 +90,7 @@ public class Bill {
         }
     }
 
-    /**
-     * Default constructor
-     */
+    // Default constructor
     public Bill() {
         this.items = new ArrayList<>();
         this.subtotal = 0.0;
@@ -113,9 +99,7 @@ public class Bill {
         this.billDate = getCurrentDateTime();
     }
 
-    /**
-     * Parameterized constructor
-     */
+    // Parameterized constructor
     public Bill(String billId, String customerId, String customerName, String cashierName) {
         this.billId = billId;
         this.customerId = customerId;
@@ -129,7 +113,6 @@ public class Bill {
     }
 
     // Getters and Setters
-
     public String getBillId() {
         return billId;
     }
@@ -186,26 +169,20 @@ public class Bill {
         this.cashierName = cashierName;
     }
 
-    /**
-     * Add item to bill
-     */
+    // Add item to bill
     public void addItem(String productId, String productName, int quantity, double unitPrice) {
         BillItem item = new BillItem(productId, productName, quantity, unitPrice);
         items.add(item);
         calculateTotals();
     }
 
-    /**
-     * Add BillItem object to bill
-     */
+    // Add BillItem object to bill
     public void addItem(BillItem item) {
         items.add(item);
         calculateTotals();
     }
 
-    /**
-     * Calculate subtotal, GST and total
-     */
+    // Calculate subtotal, GST and total
     private void calculateTotals() {
         subtotal = 0.0;
         for (BillItem item : items) {
@@ -215,27 +192,22 @@ public class Bill {
         totalAmount = subtotal + gstAmount;
     }
 
-    /**
-     * Get current date and time
-     */
+    // Get current date and time
     private String getCurrentDateTime() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         return now.format(formatter);
     }
 
-    /**
-     * Get number of items in bill
-     */
+    // Get number of items in bill
     public int getItemCount() {
         return items.size();
     }
 
-    /**
-     * Convert Bill to file format string
-     * Format:
-     * billId|customerId|customerName|cashierName|billDate|subtotal|gstAmount|totalAmount|items
-     */
+    // Convert Bill to file format string
+    // Format:
+    // billId|customerId|customerName|cashierName|billDate|subtotal|gstAmount|totalAmount|items
+
     public String toFileString() {
         StringBuilder itemsStr = new StringBuilder();
         for (int i = 0; i < items.size(); i++) {
@@ -249,9 +221,7 @@ public class Bill {
                 billDate + "|" + subtotal + "|" + gstAmount + "|" + totalAmount + "|" + itemsStr.toString();
     }
 
-    /**
-     * Create Bill from file format string
-     */
+    // Create Bill from file format string
     public static Bill fromFileString(String line) {
         String[] parts = line.split("\\|");
         if (parts.length >= 8) {
@@ -281,9 +251,7 @@ public class Bill {
         return null;
     }
 
-    /**
-     * Display bill invoice
-     */
+    // Display bill invoice
     public void displayInvoice() {
         System.out.println("\n");
         System.out.println("==================================================================");

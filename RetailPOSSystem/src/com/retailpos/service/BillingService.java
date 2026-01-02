@@ -19,19 +19,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Service class for billing operations
- * Handles all billing and customer-related business logic
- */
+// Service class for billing operation
 public class BillingService {
 
     private HashMap<String, Customer> customers;
     private ArrayList<Bill> bills;
     private InventoryService inventoryService;
 
-    /**
-     * Constructor - loads customers and bills from file
-     */
+    // Constructor - loads customers and bills from file
     public BillingService(InventoryService inventoryService) {
         this.inventoryService = inventoryService;
         this.customers = new HashMap<>();
@@ -40,9 +35,7 @@ public class BillingService {
         loadBills();
     }
 
-    /**
-     * Load customers from file
-     */
+    // Load customers from file
     private void loadCustomers() {
         try {
             ArrayList<String> lines = FileUtil.readFromFile(FileUtil.CUSTOMERS_FILE);
@@ -57,9 +50,7 @@ public class BillingService {
         }
     }
 
-    /**
-     * Save customers to file
-     */
+    // Save customers to file
     private void saveCustomers() {
         try {
             ArrayList<String> lines = new ArrayList<>();
@@ -72,9 +63,7 @@ public class BillingService {
         }
     }
 
-    /**
-     * Load bills from file
-     */
+    // Load bills from file
     private void loadBills() {
         try {
             ArrayList<String> lines = FileUtil.readFromFile(FileUtil.BILLS_FILE);
@@ -89,11 +78,7 @@ public class BillingService {
         }
     }
 
-    /**
-     * Save bill to file
-     * 
-     * @param bill Bill to save
-     */
+    // Save bill to file
     private void saveBill(Bill bill) {
         try {
             FileUtil.writeToFile(FileUtil.BILLS_FILE, bill.toFileString(), true);
@@ -103,12 +88,7 @@ public class BillingService {
         }
     }
 
-    /**
-     * Add new customer
-     * 
-     * @param customer Customer to add
-     * @throws InvalidInputException If customer ID already exists
-     */
+    // Add new customer
     public void addCustomer(Customer customer) throws InvalidInputException {
         if (customers.containsKey(customer.getCustomerId())) {
             throw new InvalidInputException("Customer with ID " + customer.getCustomerId() + " already exists");
@@ -118,13 +98,7 @@ public class BillingService {
         System.out.println("✓ Customer added successfully!");
     }
 
-    /**
-     * Get customer by ID
-     * 
-     * @param customerId Customer ID
-     * @return Customer object
-     * @throws InvalidInputException If customer not found
-     */
+    // Get customer by ID
     public Customer getCustomer(String customerId) throws InvalidInputException {
         Customer customer = customers.get(customerId);
         if (customer == null) {
@@ -133,9 +107,7 @@ public class BillingService {
         return customer;
     }
 
-    /**
-     * View all customers
-     */
+    // View all customers
     public void viewAllCustomers() {
         if (customers.isEmpty()) {
             System.out.println("No customers registered.");
@@ -158,12 +130,7 @@ public class BillingService {
         System.out.println("==================================================================\n");
     }
 
-    /**
-     * Search customers by name or phone
-     * 
-     * @param searchTerm Search term
-     * @return ArrayList of matching customers
-     */
+    // Search customers by name or phone
     public ArrayList<Customer> searchCustomers(String searchTerm) {
         ArrayList<Customer> results = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
@@ -179,29 +146,14 @@ public class BillingService {
         return results;
     }
 
-    /**
-     * Create a new bill
-     * 
-     * @param customerId  Customer ID
-     * @param cashierName Cashier name
-     * @return New Bill object
-     * @throws InvalidInputException If customer not found
-     */
+    // Create a new bill
     public Bill createBill(String customerId, String cashierName) throws InvalidInputException {
         Customer customer = getCustomer(customerId);
         String billId = generateNextBillId();
         return new Bill(billId, customerId, customer.getCustomerName(), cashierName);
     }
 
-    /**
-     * Add item to bill
-     * 
-     * @param bill      Bill object
-     * @param productId Product ID
-     * @param quantity  Quantity
-     * @throws ProductNotFoundException   If product not found
-     * @throws InsufficientStockException If insufficient stock
-     */
+    // Add item to bill
     public void addItemToBill(Bill bill, String productId, int quantity)
             throws ProductNotFoundException, InsufficientStockException {
 
@@ -217,13 +169,7 @@ public class BillingService {
         System.out.println("✓ Item added to bill: " + product.getProductName() + " x " + quantity);
     }
 
-    /**
-     * Complete billing transaction
-     * 
-     * @param bill Bill object
-     * @throws ProductNotFoundException   If product not found during stock update
-     * @throws InsufficientStockException If stock becomes insufficient
-     */
+    // Complete billing transaction
     public void completeBilling(Bill bill)
             throws ProductNotFoundException, InsufficientStockException {
 
@@ -250,9 +196,7 @@ public class BillingService {
         System.out.println("✓ Transaction completed successfully!");
     }
 
-    /**
-     * View all bills
-     */
+    // View all bills
     public void viewAllBills() {
         if (bills.isEmpty()) {
             System.out.println("No bills generated yet.");
@@ -280,12 +224,7 @@ public class BillingService {
         System.out.println("==================================================================\n");
     }
 
-    /**
-     * Search bills by customer ID or bill ID
-     * 
-     * @param searchTerm Search term
-     * @return ArrayList of matching bills
-     */
+    // Search bills by customer ID or bill ID
     public ArrayList<Bill> searchBills(String searchTerm) {
         ArrayList<Bill> results = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
@@ -301,13 +240,7 @@ public class BillingService {
         return results;
     }
 
-    /**
-     * Get bill by ID
-     * 
-     * @param billId Bill ID
-     * @return Bill object
-     * @throws InvalidInputException If bill not found
-     */
+    // Get bill by ID
     public Bill getBill(String billId) throws InvalidInputException {
         for (Bill bill : bills) {
             if (bill.getBillId().equals(billId)) {
@@ -317,9 +250,7 @@ public class BillingService {
         throw new InvalidInputException("Bill with ID " + billId + " not found");
     }
 
-    /**
-     * Generate sales report
-     */
+    // Generate sales report
     public void generateSalesReport() {
         if (bills.isEmpty()) {
             System.out.println("No sales data available.");
@@ -348,11 +279,7 @@ public class BillingService {
         System.out.println("==================================================================\n");
     }
 
-    /**
-     * Generate next bill ID
-     * 
-     * @return Next available bill ID
-     */
+    // Generate next bill ID
     private String generateNextBillId() {
         int maxId = 0;
 
@@ -370,11 +297,7 @@ public class BillingService {
         return String.format("B%04d", maxId + 1);
     }
 
-    /**
-     * Generate next customer ID
-     * 
-     * @return Next available customer ID
-     */
+    // Generate next customer ID
     public String generateNextCustomerId() {
         int maxId = 0;
 
@@ -392,12 +315,7 @@ public class BillingService {
         return String.format("C%03d", maxId + 1);
     }
 
-    /**
-     * Check if customer exists
-     * 
-     * @param customerId Customer ID
-     * @return True if customer exists
-     */
+    // Check if customer exists
     public boolean customerExists(String customerId) {
         return customers.containsKey(customerId);
     }

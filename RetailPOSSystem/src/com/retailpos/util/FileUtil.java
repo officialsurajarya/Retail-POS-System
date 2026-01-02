@@ -11,10 +11,7 @@ package com.retailpos.util;
 import java.io.*;
 import java.util.ArrayList;
 
-/**
- * Utility class for file operations
- * Handles reading and writing data to text files
- */
+// Utility class for file operations
 public class FileUtil {
 
     // File paths
@@ -23,14 +20,7 @@ public class FileUtil {
     public static final String BILLS_FILE = "data/bills.txt";
     public static final String USERS_FILE = "data/users.txt";
 
-    /**
-     * Write a single line to a file
-     * 
-     * @param filePath Path to the file
-     * @param data     Data to write
-     * @param append   True to append, false to overwrite
-     * @throws IOException If file operation fails
-     */
+    // Write a single line to a file
     public static void writeToFile(String filePath, String data, boolean append) throws IOException {
         BufferedWriter writer = null;
         try {
@@ -52,13 +42,7 @@ public class FileUtil {
         }
     }
 
-    /**
-     * Read all lines from a file
-     * 
-     * @param filePath Path to the file
-     * @return ArrayList containing all lines
-     * @throws IOException If file operation fails
-     */
+    // Read all lines from a file
     public static ArrayList<String> readFromFile(String filePath) throws IOException {
         ArrayList<String> lines = new ArrayList<>();
         BufferedReader reader = null;
@@ -87,14 +71,7 @@ public class FileUtil {
         return lines;
     }
 
-    /**
-     * Write multiple lines to a file
-     * 
-     * @param filePath Path to the file
-     * @param lines    ArrayList of lines to write
-     * @param append   True to append, false to overwrite
-     * @throws IOException If file operation fails
-     */
+    // Write multiple lines to a file
     public static void writeAllLines(String filePath, ArrayList<String> lines, boolean append) throws IOException {
         BufferedWriter writer = null;
         try {
@@ -117,14 +94,7 @@ public class FileUtil {
         }
     }
 
-    /**
-     * Delete a line from file
-     * 
-     * @param filePath     Path to the file
-     * @param lineToDelete Line to delete
-     * @return True if deleted successfully
-     * @throws IOException If file operation fails
-     */
+    // Delete a line from file
     public static boolean deleteLine(String filePath, String lineToDelete) throws IOException {
         ArrayList<String> lines = readFromFile(filePath);
         boolean removed = lines.remove(lineToDelete);
@@ -136,15 +106,7 @@ public class FileUtil {
         return removed;
     }
 
-    /**
-     * Update a line in file
-     * 
-     * @param filePath Path to the file
-     * @param oldLine  Old line to replace
-     * @param newLine  New line to insert
-     * @return True if updated successfully
-     * @throws IOException If file operation fails
-     */
+    // Update a line in file
     public static boolean updateLine(String filePath, String oldLine, String newLine) throws IOException {
         ArrayList<String> lines = readFromFile(filePath);
         int index = lines.indexOf(oldLine);
@@ -158,23 +120,13 @@ public class FileUtil {
         return false;
     }
 
-    /**
-     * Check if file exists
-     * 
-     * @param filePath Path to the file
-     * @return True if file exists
-     */
+    // Check if file exists
     public static boolean fileExists(String filePath) {
         File file = new File(filePath);
         return file.exists();
     }
 
-    /**
-     * Create file if it doesn't exist
-     * 
-     * @param filePath Path to the file
-     * @throws IOException If file operation fails
-     */
+    // Create file if it doesn't exist
     public static void createFileIfNotExists(String filePath) throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
@@ -183,9 +135,7 @@ public class FileUtil {
         }
     }
 
-    /**
-     * Initialize all required files
-     */
+    // Initialize all required files
     public static void initializeFiles() {
         try {
             createFileIfNotExists(PRODUCTS_FILE);

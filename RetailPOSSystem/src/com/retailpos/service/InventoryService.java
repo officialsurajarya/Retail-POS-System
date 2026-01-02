@@ -17,25 +17,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Service class for inventory management
- * Handles all product-related business logic
- */
+// Service class for inventory management
 public class InventoryService {
 
     private HashMap<String, Product> inventory;
 
-    /**
-     * Constructor - loads inventory from file
-     */
+    // Constructor - loads inventory from file
     public InventoryService() {
         this.inventory = new HashMap<>();
         loadInventory();
     }
 
-    /**
-     * Load inventory from file
-     */
+    // Load inventory from file
     private void loadInventory() {
         try {
             ArrayList<String> lines = FileUtil.readFromFile(FileUtil.PRODUCTS_FILE);
@@ -50,9 +43,7 @@ public class InventoryService {
         }
     }
 
-    /**
-     * Save inventory to file
-     */
+    // Save inventory to file
     private void saveInventory() {
         try {
             ArrayList<String> lines = new ArrayList<>();
@@ -65,12 +56,7 @@ public class InventoryService {
         }
     }
 
-    /**
-     * Add new product to inventory
-     * 
-     * @param product Product to add
-     * @throws InvalidInputException If product ID already exists
-     */
+    // Add new product to inventory
     public void addProduct(Product product) throws InvalidInputException {
         if (inventory.containsKey(product.getProductId())) {
             throw new InvalidInputException("Product with ID " + product.getProductId() + " already exists");
@@ -80,13 +66,7 @@ public class InventoryService {
         System.out.println("✓ Product added successfully!");
     }
 
-    /**
-     * Get product by ID
-     * 
-     * @param productId Product ID
-     * @return Product object
-     * @throws ProductNotFoundException If product not found
-     */
+    // Get product by ID
     public Product getProduct(String productId) throws ProductNotFoundException {
         Product product = inventory.get(productId);
         if (product == null) {
@@ -95,13 +75,7 @@ public class InventoryService {
         return product;
     }
 
-    /**
-     * Update existing product
-     * 
-     * @param productId      Product ID to update
-     * @param updatedProduct Updated product details
-     * @throws ProductNotFoundException If product not found
-     */
+    // Update existing product
     public void updateProduct(String productId, Product updatedProduct) throws ProductNotFoundException {
         if (!inventory.containsKey(productId)) {
             throw new ProductNotFoundException("Product with ID " + productId + " not found");
@@ -111,12 +85,7 @@ public class InventoryService {
         System.out.println("✓ Product updated successfully!");
     }
 
-    /**
-     * Delete product from inventory
-     * 
-     * @param productId Product ID to delete
-     * @throws ProductNotFoundException If product not found
-     */
+    // Delete product from inventory
     public void deleteProduct(String productId) throws ProductNotFoundException {
         if (!inventory.containsKey(productId)) {
             throw new ProductNotFoundException("Product with ID " + productId + " not found");
@@ -126,9 +95,7 @@ public class InventoryService {
         System.out.println("✓ Product deleted successfully!");
     }
 
-    /**
-     * View all products
-     */
+    // View all products
     public void viewAllProducts() {
         if (inventory.isEmpty()) {
             System.out.println("No products in inventory.");
@@ -151,12 +118,7 @@ public class InventoryService {
         System.out.println("==================================================================\n");
     }
 
-    /**
-     * Search products by name
-     * 
-     * @param searchTerm Search term
-     * @return ArrayList of matching products
-     */
+    // Search products by name
     public ArrayList<Product> searchProducts(String searchTerm) {
         ArrayList<Product> results = new ArrayList<>();
         String lowerSearchTerm = searchTerm.toLowerCase();
@@ -172,15 +134,7 @@ public class InventoryService {
         return results;
     }
 
-    /**
-     * Check stock availability
-     * 
-     * @param productId Product ID
-     * @param quantity  Required quantity
-     * @return True if stock is available
-     * @throws ProductNotFoundException   If product not found
-     * @throws InsufficientStockException If stock is insufficient
-     */
+    // Check stock availability
     public boolean checkStock(String productId, int quantity)
             throws ProductNotFoundException, InsufficientStockException {
         Product product = getProduct(productId);
@@ -195,14 +149,7 @@ public class InventoryService {
         return true;
     }
 
-    /**
-     * Reduce stock after billing
-     * 
-     * @param productId Product ID
-     * @param quantity  Quantity to reduce
-     * @throws ProductNotFoundException   If product not found
-     * @throws InsufficientStockException If stock is insufficient
-     */
+    // Reduce stock after billing
     public void reduceStock(String productId, int quantity)
             throws ProductNotFoundException, InsufficientStockException {
         Product product = getProduct(productId);
@@ -218,13 +165,7 @@ public class InventoryService {
         saveInventory();
     }
 
-    /**
-     * Add stock to product
-     * 
-     * @param productId Product ID
-     * @param quantity  Quantity to add
-     * @throws ProductNotFoundException If product not found
-     */
+    // Add stock to product
     public void addStock(String productId, int quantity) throws ProductNotFoundException {
         Product product = getProduct(productId);
         product.addStock(quantity);
@@ -232,11 +173,7 @@ public class InventoryService {
         System.out.println("✓ Stock updated successfully!");
     }
 
-    /**
-     * Get low stock products (stock < 10)
-     * 
-     * @return ArrayList of low stock products
-     */
+    // Get low stock products (stock < 10)
     public ArrayList<Product> getLowStockProducts() {
         ArrayList<Product> lowStockProducts = new ArrayList<>();
 
@@ -249,9 +186,7 @@ public class InventoryService {
         return lowStockProducts;
     }
 
-    /**
-     * Display low stock alert
-     */
+    // Display low stock alert
     public void displayLowStockAlert() {
         ArrayList<Product> lowStockProducts = getLowStockProducts();
 
@@ -277,11 +212,7 @@ public class InventoryService {
         System.out.println("==================================================================\n");
     }
 
-    /**
-     * Get total inventory value
-     * 
-     * @return Total value of inventory
-     */
+    // Get total inventory value
     public double getTotalInventoryValue() {
         double totalValue = 0.0;
 
@@ -292,30 +223,17 @@ public class InventoryService {
         return totalValue;
     }
 
-    /**
-     * Get product count
-     * 
-     * @return Number of products in inventory
-     */
+    // Get product count
     public int getProductCount() {
         return inventory.size();
     }
 
-    /**
-     * Check if product exists
-     * 
-     * @param productId Product ID
-     * @return True if product exists
-     */
+    // Check if product exists
     public boolean productExists(String productId) {
         return inventory.containsKey(productId);
     }
 
-    /**
-     * Generate next product ID
-     * 
-     * @return Next available product ID
-     */
+    // Generate next product ID
     public String generateNextProductId() {
         int maxId = 0;
 
