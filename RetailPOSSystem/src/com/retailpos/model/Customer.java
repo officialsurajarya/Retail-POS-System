@@ -10,13 +10,8 @@ package com.retailpos.model;
 
 import java.util.ArrayList;
 
-/**
- * Customer model class representing a customer in the system
- * Demonstrates Encapsulation and OOP principles
- */
 public class Customer {
 
-    // Private fields - Encapsulation
     private String customerId;
     private String customerName;
     private String phoneNumber;
@@ -24,22 +19,13 @@ public class Customer {
     private ArrayList<String> purchaseHistory;
     private double totalPurchaseAmount;
 
-    /**
-     * Default constructor
-     */
+    // Default constructor
     public Customer() {
         this.purchaseHistory = new ArrayList<>();
         this.totalPurchaseAmount = 0.0;
     }
 
-    /**
-     * Parameterized constructor
-     * 
-     * @param customerId   Unique customer identifier
-     * @param customerName Name of the customer
-     * @param phoneNumber  Phone number
-     * @param email        Email address
-     */
+    // Parameterized constructor
     public Customer(String customerId, String customerName, String phoneNumber, String email) {
         this.customerId = customerId;
         this.customerName = customerName;
@@ -49,9 +35,7 @@ public class Customer {
         this.totalPurchaseAmount = 0.0;
     }
 
-    /**
-     * Full constructor with purchase history
-     */
+    // Full constructor with purchase history
     public Customer(String customerId, String customerName, String phoneNumber,
             String email, double totalPurchaseAmount) {
         this.customerId = customerId;
@@ -63,7 +47,6 @@ public class Customer {
     }
 
     // Getters and Setters
-
     public String getCustomerId() {
         return customerId;
     }
@@ -112,43 +95,24 @@ public class Customer {
         this.totalPurchaseAmount = totalPurchaseAmount;
     }
 
-    /**
-     * Add a purchase to history
-     * 
-     * @param billId Bill ID of the purchase
-     * @param amount Purchase amount
-     */
+    // Add a purchase to history
     public void addPurchase(String billId, double amount) {
         this.purchaseHistory.add(billId);
         this.totalPurchaseAmount += amount;
     }
 
-    /**
-     * Get number of purchases
-     * 
-     * @return Number of purchases
-     */
+    // Get number of purchases
     public int getPurchaseCount() {
         return purchaseHistory.size();
     }
 
-    /**
-     * Convert Customer object to file format string
-     * Format: customerId|customerName|phoneNumber|email|totalPurchaseAmount
-     * 
-     * @return Formatted string for file storage
-     */
+    // Format: customerId|customerName|phoneNumber|email|totalPurchaseAmount
     public String toFileString() {
         return customerId + "|" + customerName + "|" + phoneNumber + "|" +
                 email + "|" + totalPurchaseAmount;
     }
 
-    /**
-     * Create Customer object from file format string
-     * 
-     * @param line Line from file
-     * @return Customer object
-     */
+    // Create Customer object from file format string
     public static Customer fromFileString(String line) {
         String[] parts = line.split("\\|");
         if (parts.length >= 4) {
@@ -163,9 +127,7 @@ public class Customer {
         return null;
     }
 
-    /**
-     * Display customer details
-     */
+    // Display customer details
     public void displayCustomer() {
         System.out.println("==================================================");
         System.out.println("Customer ID      : " + customerId);
@@ -176,7 +138,6 @@ public class Customer {
         System.out.println("Purchase Count   : " + getPurchaseCount());
         System.out.println("==================================================");
     }
-
     @Override
     public String toString() {
         return String.format("%-10s %-20s %-15s %-25s Rs.%-10.2f",
