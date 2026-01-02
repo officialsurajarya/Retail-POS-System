@@ -1,8 +1,8 @@
 /*
 Developer Name : Suraj Arya
 PRN Number : STT-25128071920
-Responsibility: Main Application - Menu Driven Program & User Authentication
-Concepts Used : Scanner, Switch-Case, Menu Driven Programming, Exception Handling,
+Responsibility: Main Application - Menu Menu & User Authentication
+Concepts Used : Scanner, Switch-Case, Menu Programming, Exception Handling,
                 File Handling, User Authentication, Modular Design
 */
 
@@ -20,10 +20,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.IOException;
 
-/**
- * Main Application class for Retail POS System
- * Provides menu-driven interface for all operations
- */
+// Main Application class
 public class MainApp {
 
     private static Scanner scanner = new Scanner(System.in);
@@ -32,19 +29,14 @@ public class MainApp {
     private static String currentUser;
     private static String currentUserRole;
 
-    /**
-     * Main method - Entry point of application
-     */
+    // Main method - Entry point of application
     public static void main(String[] args) {
 
-        // Initialize files
         FileUtil.initializeFiles();
 
-        // Initialize services
         inventoryService = new InventoryService();
         billingService = new BillingService(inventoryService);
 
-        // Display welcome screen
         displayWelcomeScreen();
 
         // User authentication
@@ -54,7 +46,7 @@ public class MainApp {
                 return;
             }
         } catch (AuthenticationException e) {
-            System.out.println("✗ " + e.getMessage());
+            System.out.println("X " + e.getMessage());
             return;
         }
 
@@ -86,18 +78,16 @@ public class MainApp {
                         exitApplication();
                         break;
                     default:
-                        System.out.println("✗ Invalid choice. Please try again.");
+                        System.out.println("X Invalid choice. Please try again.");
                 }
 
             } catch (Exception e) {
-                System.out.println("✗ Error: " + e.getMessage());
+                System.out.println("X Error: " + e.getMessage());
             }
         }
     }
 
-    /**
-     * Display welcome screen
-     */
+    // Welcome Screen
     private static void displayWelcomeScreen() {
         System.out.println("\n");
         System.out.println("==================================================================");
@@ -117,19 +107,14 @@ public class MainApp {
         System.out.println("==================================================================\n");
     }
 
-    /**
-     * User authentication
-     * 
-     * @return True if authenticated
-     * @throws AuthenticationException If authentication fails
-     */
+    // User authentication
     private static boolean authenticateUser() throws AuthenticationException {
         System.out.println("╔═══════════════════════════════════════╗");
         System.out.println("║              USER LOGIN               ║");
         System.out.println("╚═══════════════════════════════════════╝");
 
         int attempts = 0;
-        int maxAttempts = 3;
+        int maxAttempts = 5;
 
         while (attempts < maxAttempts) {
             try {
@@ -139,7 +124,6 @@ public class MainApp {
                 System.out.print("Password: ");
                 String password = scanner.nextLine().trim();
 
-                // Read users from file
                 ArrayList<String> users = FileUtil.readFromFile(FileUtil.USERS_FILE);
 
                 for (String line : users) {
@@ -148,7 +132,7 @@ public class MainApp {
                         if (parts[0].equals(username) && parts[1].equals(password)) {
                             currentUser = username;
                             currentUserRole = parts[2];
-                            System.out.println("\n✓ Login successful!");
+                            System.out.println("\n Login successful!");
                             System.out.println("Welcome, " + username + " (" + currentUserRole + ")");
                             Thread.sleep(1000);
                             return true;
@@ -157,7 +141,7 @@ public class MainApp {
                 }
 
                 attempts++;
-                System.out.println("✗ Invalid credentials. Attempts remaining: " + (maxAttempts - attempts));
+                System.out.println("X Invalid credentials. Attempts remaining: " + (maxAttempts - attempts));
 
             } catch (IOException e) {
                 throw new AuthenticationException("Error reading user data: " + e.getMessage());
@@ -169,9 +153,7 @@ public class MainApp {
         throw new AuthenticationException("Maximum login attempts exceeded");
     }
 
-    /**
-     * Display main menu
-     */
+    // Display main menu
     private static void displayMainMenu() {
         System.out.println("\n╔═══════════════════════════════════════╗");
         System.out.println("║           MAIN MENU                   ║");
@@ -186,9 +168,7 @@ public class MainApp {
         System.out.print("Enter your choice: ");
     }
 
-    /**
-     * Product Management Menu
-     */
+    // Product Management Menu
     private static void productManagementMenu() {
         boolean back = false;
 
@@ -228,17 +208,15 @@ public class MainApp {
                         back = true;
                         break;
                     default:
-                        System.out.println("✗ Invalid choice.");
+                        System.out.println("X Invalid choice.");
                 }
             } catch (Exception e) {
-                System.out.println("✗ Error: " + e.getMessage());
+                System.out.println("X Error: " + e.getMessage());
             }
         }
     }
 
-    /**
-     * Add new product
-     */
+    // Add new product
     private static void addProduct() {
         try {
             System.out.println("\n--- Add New Product ---");
@@ -269,13 +247,11 @@ public class MainApp {
             inventoryService.addProduct(product);
 
         } catch (InvalidInputException e) {
-            System.out.println("✗ " + e.getMessage());
+            System.out.println("X " + e.getMessage());
         }
     }
 
-    /**
-     * Search product
-     */
+    // Search product
     private static void searchProduct() {
         System.out.print("\nEnter search term (ID/Name/Category): ");
         String searchTerm = scanner.nextLine().trim();
@@ -292,9 +268,7 @@ public class MainApp {
         }
     }
 
-    /**
-     * Update product
-     */
+    // Update product
     private static void updateProduct() {
         try {
             System.out.print("\nEnter Product ID to update: ");
@@ -337,13 +311,11 @@ public class MainApp {
             inventoryService.updateProduct(productId, existingProduct);
 
         } catch (ProductNotFoundException | InvalidInputException e) {
-            System.out.println("✗ " + e.getMessage());
+            System.out.println("X " + e.getMessage());
         }
     }
 
-    /**
-     * Delete product
-     */
+    // Delete product
     private static void deleteProduct() {
         try {
             System.out.print("\nEnter Product ID to delete: ");
@@ -352,23 +324,21 @@ public class MainApp {
             Product product = inventoryService.getProduct(productId);
             product.displayProduct();
 
-            System.out.print("Are you sure you want to delete this product? (yes/no): ");
+            System.out.print("Are you sure you want to delete this product? (y/n): ");
             String confirm = scanner.nextLine().trim().toLowerCase();
 
-            if (confirm.equals("yes")) {
+            if (confirm.equals("y")) {
                 inventoryService.deleteProduct(productId);
             } else {
                 System.out.println("Delete operation cancelled.");
             }
 
         } catch (ProductNotFoundException e) {
-            System.out.println("✗ " + e.getMessage());
+            System.out.println("X " + e.getMessage());
         }
     }
 
-    /**
-     * Inventory Management Menu
-     */
+    // Inventory Management Menu
     private static void inventoryManagementMenu() {
         boolean back = false;
 
@@ -404,17 +374,15 @@ public class MainApp {
                         back = true;
                         break;
                     default:
-                        System.out.println("✗ Invalid choice.");
+                        System.out.println("X Invalid choice.");
                 }
             } catch (Exception e) {
-                System.out.println("✗ Error: " + e.getMessage());
+                System.out.println("X Error: " + e.getMessage());
             }
         }
     }
 
-    /**
-     * Check stock for a product
-     */
+    // Check stock for a product
     private static void checkStock() {
         try {
             System.out.print("\nEnter Product ID: ");
@@ -433,9 +401,7 @@ public class MainApp {
         }
     }
 
-    /**
-     * Add stock to a product
-     */
+    // Add stock to a product
     private static void addStock() {
         try {
             System.out.print("\nEnter Product ID: ");
@@ -453,13 +419,11 @@ public class MainApp {
             System.out.println("New Stock: " + inventoryService.getProduct(productId).getStockQuantity());
 
         } catch (ProductNotFoundException | InvalidInputException e) {
-            System.out.println("✗ " + e.getMessage());
+            System.out.println("X " + e.getMessage());
         }
     }
 
-    /**
-     * Display total inventory value
-     */
+    // Display total inventory value
     private static void displayInventoryValue() {
         double totalValue = inventoryService.getTotalInventoryValue();
         int productCount = inventoryService.getProductCount();
@@ -469,9 +433,7 @@ public class MainApp {
         System.out.println("Total Inventory Value: Rs. " + String.format("%.2f", totalValue));
     }
 
-    /**
-     * Billing Menu
-     */
+    // Billing Menu
     private static void billingMenu() {
         boolean back = false;
 
@@ -503,17 +465,15 @@ public class MainApp {
                         back = true;
                         break;
                     default:
-                        System.out.println("✗ Invalid choice.");
+                        System.out.println("Invalid choice.");
                 }
             } catch (Exception e) {
-                System.out.println("✗ Error: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
             }
         }
     }
 
-    /**
-     * Create new bill
-     */
+    // Create new bill
     private static void createBill() {
         try {
             System.out.println("\n--- Create New Bill ---");
@@ -540,19 +500,19 @@ public class MainApp {
                 try {
                     billingService.addItemToBill(bill, productId, quantity);
                 } catch (ProductNotFoundException | InsufficientStockException e) {
-                    System.out.println("✗ " + e.getMessage());
-                    System.out.print("Continue adding items? (yes/no): ");
-                    if (!scanner.nextLine().trim().equalsIgnoreCase("yes")) {
+                    System.out.println("X " + e.getMessage());
+                    System.out.print("Continue adding items? (y/n): ");
+                    if (!scanner.nextLine().trim().equalsIgnoreCase("y")) {
                         addingItems = false;
                     }
                 }
             }
 
             if (bill.getItemCount() > 0) {
-                System.out.print("\nConfirm billing? (yes/no): ");
+                System.out.print("\nConfirm billing? (y/n): ");
                 String confirm = scanner.nextLine().trim().toLowerCase();
 
-                if (confirm.equals("yes")) {
+                if (confirm.equals("y")) {
                     billingService.completeBilling(bill);
                 } else {
                     System.out.println("Billing cancelled.");
@@ -562,13 +522,11 @@ public class MainApp {
             }
 
         } catch (InvalidInputException | ProductNotFoundException | InsufficientStockException e) {
-            System.out.println("✗ " + e.getMessage());
+            System.out.println("X " + e.getMessage());
         }
     }
 
-    /**
-     * Search bill
-     */
+    // Search bill
     private static void searchBill() {
         System.out.print("\nEnter search term (Bill ID/Customer ID/Name): ");
         String searchTerm = scanner.nextLine().trim();
@@ -585,9 +543,7 @@ public class MainApp {
         }
     }
 
-    /**
-     * Customer Management Menu
-     */
+    // Customer Management Menu
     private static void customerManagementMenu() {
         boolean back = false;
 
@@ -619,17 +575,15 @@ public class MainApp {
                         back = true;
                         break;
                     default:
-                        System.out.println("✗ Invalid choice.");
+                        System.out.println("X Invalid choice.");
                 }
             } catch (Exception e) {
-                System.out.println("✗ Error: " + e.getMessage());
+                System.out.println("X Error: " + e.getMessage());
             }
         }
     }
 
-    /**
-     * Add new customer
-     */
+    // Add new customer
     private static void addCustomer() {
         try {
             System.out.println("\n--- Add New Customer ---");
@@ -653,13 +607,11 @@ public class MainApp {
             billingService.addCustomer(customer);
 
         } catch (InvalidInputException e) {
-            System.out.println("✗ " + e.getMessage());
+            System.out.println("X " + e.getMessage());
         }
     }
 
-    /**
-     * Search customer
-     */
+    // Search customer
     private static void searchCustomer() {
         System.out.print("\nEnter search term (ID/Name/Phone): ");
         String searchTerm = scanner.nextLine().trim();
@@ -676,9 +628,7 @@ public class MainApp {
         }
     }
 
-    /**
-     * Reports Menu
-     */
+    // Reports Menu
     private static void reportsMenu() {
         boolean back = false;
 
@@ -715,9 +665,7 @@ public class MainApp {
         }
     }
 
-    /**
-     * Exit application
-     */
+    // Exit application
     private static void exitApplication() {
         System.out.println("\n==================================================================");
         System.out.println("              Thank you for using Retail POS System!              ");

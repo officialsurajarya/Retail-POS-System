@@ -8,6 +8,10 @@ Concepts Used : Encapsulation, Constructor Overloading, Getters/Setters, toStrin
 
 package com.retailpos.model;
 
+/**
+ * Product model class representing a product in the inventory
+ * Demonstrates Encapsulation and OOP principles
+ */
 public class Product {
 
     // Private fields - Encapsulation
@@ -18,11 +22,21 @@ public class Product {
     private int stockQuantity;
     private String description;
 
-    // Default constructor
+    /**
+     * Default constructor
+     */
     public Product() {
     }
 
-    // Parameterized constructor
+    /**
+     * Parameterized constructor
+     * 
+     * @param productId     Unique product identifier
+     * @param productName   Name of the product
+     * @param category      Product category
+     * @param price         Product price
+     * @param stockQuantity Available stock
+     */
     public Product(String productId, String productName, String category, double price, int stockQuantity) {
         this.productId = productId;
         this.productName = productName;
@@ -32,7 +46,9 @@ public class Product {
         this.description = "";
     }
 
-    // Full constructor with description
+    /**
+     * Full constructor with description
+     */
     public Product(String productId, String productName, String category, double price,
             int stockQuantity, String description) {
         this.productId = productId;
@@ -44,6 +60,7 @@ public class Product {
     }
 
     // Getters and Setters
+
     public String getProductId() {
         return productId;
     }
@@ -92,33 +109,60 @@ public class Product {
         this.description = description;
     }
 
-    // Reduce stock by specified quantity
+    /**
+     * Reduce stock by specified quantity
+     * 
+     * @param quantity Quantity to reduce
+     */
     public void reduceStock(int quantity) {
         this.stockQuantity -= quantity;
     }
 
-    // Add stock by specified quantity
+    /**
+     * Add stock by specified quantity
+     * 
+     * @param quantity Quantity to add
+     */
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
     }
 
-    // Check if product is in stock
+    /**
+     * Check if product is in stock
+     * 
+     * @return True if stock is available
+     */
     public boolean isInStock() {
         return stockQuantity > 0;
     }
 
-    // Check if requested quantity is available
+    /**
+     * Check if requested quantity is available
+     * 
+     * @param requestedQty Requested quantity
+     * @return True if available
+     */
     public boolean hasStock(int requestedQty) {
         return stockQuantity >= requestedQty;
     }
 
-    // Format: productId|productName|category|price|stockQuantity|description
+    /**
+     * Convert Product object to file format string
+     * Format: productId|productName|category|price|stockQuantity|description
+     * 
+     * @return Formatted string for file storage
+     */
     public String toFileString() {
         return productId + "|" + productName + "|" + category + "|" +
                 price + "|" + stockQuantity + "|" + description;
     }
 
-    // Create Product object from file format string
+    /**
+     * Create Product object from file format string
+     * 
+     * @param line Line from file
+     * @return Product object
+     */
     public static Product fromFileString(String line) {
         String[] parts = line.split("\\|");
         if (parts.length >= 5) {
@@ -134,7 +178,9 @@ public class Product {
         return null;
     }
 
-    // Display product details
+    /**
+     * Display product details
+     */
     public void displayProduct() {
         System.out.println("==================================================");
         System.out.println("Product ID       : " + productId);

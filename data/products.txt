@@ -7,4 +7,4 @@ P003|Keyboard|Electronics|1200.0|30|Mechanical Gaming Keyboard
 P002|Mouse|Electronics|500.0|49|Logitech Wireless Mouse
 P010|Backpack|Accessories|1500.0|35|Laptop Backpack
 P009|Charger|Accessories|800.0|45|Fast Charging Adapter
-P008|Phone Cover|Accessories|300.0|100|Silicone Phone Cover
+P008|Phone Cover|Accessories|300.0|80|Silicone Phone Cover
