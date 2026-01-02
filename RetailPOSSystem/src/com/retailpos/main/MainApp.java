@@ -113,7 +113,7 @@ public class MainApp {
         System.out.println("                                                                  ");
         System.out.println("==================================================================");
         System.out.println("                  Developed by Team of RetailRangers              ");
-        System.out.println("     (Suraj Arya, Aryan Pandey, Vaivabhai Anand, Atul Mishra)     ");
+        System.out.println("     (Suraj Arya, Aryan Pandey, Vaibhavi Anand, Atul Mishra)     ");
         System.out.println("==================================================================\n");
     }
 
